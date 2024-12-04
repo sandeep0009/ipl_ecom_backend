@@ -1,10 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import service from "./user_service"
 
 
 export const create=async(
     req:Request |any,
     res:Response,
+    next:NextFunction
 
 ):Promise<any>=>{
     try {
@@ -13,6 +14,7 @@ export const create=async(
         
     } catch (error) {
         console.log("error in creation of user",error);
+        next(error)
 
         
     }
@@ -23,6 +25,7 @@ export const create=async(
 export const login=async(
     req:Request |any,
     res:Response,
+    next:NextFunction
 
 ):Promise<any>=>{
     try {
@@ -31,6 +34,7 @@ export const login=async(
         
     } catch (error) {
         console.log("error in user login",error);
+        next(error)
         
         
     }

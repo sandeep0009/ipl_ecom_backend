@@ -16,6 +16,7 @@ const create=async(
         };
     }
 
+    console.log(name,email,password,iplTeam)
     const userExist=await User.findOne({email});
     if(userExist){
         throw{
@@ -24,8 +25,7 @@ const create=async(
         }
     }
 
-    const hashPassword=await bcrypt.hash(password,10);
-
+    const hashPassword = await bcrypt.hash(password, 10);
     const newUser=await User.create({name,password:hashPassword,email,iplTeam});
     return newUser;
 
@@ -50,8 +50,8 @@ const login=async(body:any):Promise<any>=>{
         }
     }
 
-    const comparePassword=await bcrypt.compare(userExist.password,password);
-    if(!comparePassword){
+    const comparePassword = await bcrypt.compare(password, userExist.password);
+     if(!comparePassword){
         throw{
             status:"404",
             msg:"error in credentials"
